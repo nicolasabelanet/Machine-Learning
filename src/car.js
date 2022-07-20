@@ -21,7 +21,7 @@ class Car {
 
         if (controlType != "DUMMY") {
             this.sensor = new Sensor(this);
-            this.brain = new NueralNetwork(
+            this.brain = new NeuralNetwork(
                 [this.sensor.rayCount, 6, 4]
             );
         }
@@ -45,7 +45,7 @@ class Car {
                 s => s == null ? 0 : 1 - s.offset
             )
             
-            const outputs = NueralNetwork.feedForward(offsets, this.brain);
+            const outputs = NeuralNetwork.feedForward(offsets, this.brain);
 
             if (this.useBrain) {
                 this.controls.forward = outputs[0];
@@ -151,7 +151,7 @@ class Car {
 
     }
 
-    draw (context, color) {
+    draw (context, color, drawSensor = false) {
 
         if (this.damaged) {
             context.fillStyle = "gray";
@@ -168,7 +168,7 @@ class Car {
         }
         context.fill();
 
-        if (this.sensor) {
+        if (this.sensor && drawSensor) {
             this.sensor.draw(context);
         }
 
